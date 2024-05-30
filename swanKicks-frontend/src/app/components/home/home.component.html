@@ -1,0 +1,85 @@
+<body class="home">
+    <div class="logo-container">
+      <img id="logo" src='.\assets\logo.png' alt="Foto logo">
+      <h1 class="initialText"><b><i>Comincia anche tu a Comprare e Vendere Sneakers!</i></b></h1>
+    </div>
+  
+    <div class="filtriRicercaContainer">
+      <form class="formFiltri" [formGroup]="formFiltri">
+        <div class="filtriContainer">
+          <select class="tipoScarpaSelect" formControlName="tipoScarpa" [(ngModel)]="tipoScarpaValue" (change)="tipoScarpaValueChange($event)" required>
+            <option value="" selected disabled>Seleziona tipo scarpa</option>
+            <option class="optionEntry" value="High">High</option>
+            <option class="optionEntry" value="Mid">Mid</option>
+            <option class="optionEntry" value="Low">Low</option>
+          </select>
+          <select class="tipoAnnuncioSelect" formControlName="tipoAnnuncio" [(ngModel)]="tipoAnnuncioValue" (change)="tipoAnnuncioValueChange($event)" required>
+            <option value="" disabled selected>Seleziona tipo annuncio</option>
+            <option class="optionEntry" value="In_Vendita">In vendita</option>
+            <option class="optionEntry" value="In_Asta">Asta</option>
+          </select>
+          <select class="tipoOrdinamentoSelect" formControlName="tipoOrdinamento" [(ngModel)]="tipoOrdinamentoValue" (change)="tipoOrdinamentoValueChange($event)" required>
+            <option value="" disabled selected>Ordina per</option>
+            <option class="optionEntry" value="automatico">Automatico</option>
+            <option class="optionEntry" value="piu_costosi">Più costosi</option>
+            <option class="optionEntry" value="meno_costosi">Meno costosi</option>
+            <option class="optionEntry" value="piu_recenti">Più recenti</option>
+            <option class="optionEntry" value="meno_recenti">Meno recenti</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  
+    <form [formGroup]="formRicerca" (ngSubmit)="onSubmit()">
+      <div class="ricercaContainer">
+        <mat-form-field class="searchBar">
+          <mat-label>Cerca la tua scarpa!</mat-label>
+          <input matInput formControlName="searchWord" placeholder="Es. Nike Jordan 1 High Dark Mocha">
+        </mat-form-field>
+        <button class="searchButton" type="submit">Cerca</button>
+      </div>
+    </form>
+  
+    <ng-template *ngIf="!Mobile(); then desktopView else mobileView"></ng-template>
+  
+    <ng-template #desktopView>
+      <mat-grid-list [cols]="this.showOnly2Cols ? 2 : 3" gutterSize="25px" rowHeight="430px" class="gridList">
+        <mat-grid-tile *ngFor="let sca of scarpe">
+          <a href="http://localhost:4200/annuncio/{{sca.id}}" style="text-decoration: none; color: black;">
+            <mat-card class="cards" (click)="OpenScarpa(sca.id)">
+              <div class="imageContainer">
+                <img mat-card-image [src]="this.images[sca.id]" class="matCardImg" onerror="this.src='assets/no_images_found.png'">
+              </div>
+              <mat-card-footer>
+                <mat-card-title>{{sca.nome}}</mat-card-title>
+                <mat-card-subtitle>{{sca.marca}}</mat-card-subtitle>
+                <mat-card-title>{{sca.prezzo_attuale}}€</mat-card-title>
+              </mat-card-footer>
+            </mat-card>
+          </a>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </ng-template>
+  
+    <ng-template #mobileView>
+      <mat-grid-list cols="1" rowHeight="500px" style="margin-top: 15px;">
+        <mat-grid-tile *ngFor="let sca of scarpe" >
+          <mat-card class="cards" (click)="OpenScarpa(sca.id)">
+            <div class="imageContainer">
+              <img mat-card-image [src]="this.images[sca.id]" class="matCardImg" onerror="this.src='assets/no_images_found.png'">
+            </div>
+            <mat-card-footer>
+              <mat-card-title>{{sca.nome}}</mat-card-title>
+              <mat-card-subtitle>{{sca.marca}}</mat-card-subtitle>
+              <mat-card-title>{{sca.prezzo_attuale}}€</mat-card-title>
+            </mat-card-footer>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </ng-template>
+  </body>
+  
+  
+  
+  
+  

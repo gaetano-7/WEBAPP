@@ -1,0 +1,37 @@
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+</head>
+<body>
+  <div class="background">
+      <div class="blur-overlay"></div>
+      <div class="container">
+          <div class="secondRow">
+              <div class="scarpaGeneric">
+                  <div class="scarpaDescription">
+                      <h2>CARRELLO</h2>
+                      <mat-divider class="secondRowDivider"></mat-divider>
+                      <h4 class="scarpaDescription">{{scarpa.descrizione}}</h4>
+                      <h2>Completa qui il tuo acquisto</h2>
+                  </div>
+              </div>
+          </div>
+          <div class="secondRow">
+            <div class="scarpaGeneric">
+              <p class="noReviewsFound" *ngIf="acquisti.length == 0">Non sono presenti articoli nel carrello</p>
+              <div class="acquisti" *ngFor="let acquisto of acquisti; index as i">
+                <img class="img" [src]="acquisto.immagine" alt="Image" onerror="this.src='assets/no_images_found.png'">
+                  <p>Articolo: {{acquisto.nome}}</p>
+                  <p>Prezzo: {{acquisto.prezzo}}</p>
+                  <p>Taglia: {{acquisto.taglia}}</p>
+                  <button class="red-button" (click)="rimuoviAcquisto(acquisto.id)">Rimuovi</button>
+                  <mat-divider class="secondRowDivider"></mat-divider>
+              </div>
+              <h2>TOTALE:</h2>
+              <h2>{{totale}}€</h2>
+              <button class="blu-button" (click)="acquista()">Completa acquisto</button>
+            </div>
+        </div>
+      </div>
+  </div> 
+</body>

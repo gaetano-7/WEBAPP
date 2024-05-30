@@ -1,0 +1,110 @@
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="background">
+        <div class="blur-overlay"></div>
+        <div class="container">
+            <div class="zeroRow">
+                <div class="scarpaInfos">
+                    <h2><strong>{{scarpa.nome}}</strong></h2>
+                </div>
+            </div>
+            <div class="firstRow">
+                <div class="imageCarousel">
+                    <img class="img" *ngFor="let image of images" [src]="image" alt="Image">
+                    <img class="img" *ngIf="images.length === 0" src="assets/no_images_found.png">
+                </div>
+                <mat-divider class="mat-divider thick-divider" [vertical]="true"></mat-divider>
+                <div class="sellerInfos">
+                    <mat-card class="sellerCard">
+                        <mat-card-footer>
+                            <mat-card-title>Opzioni per acquistare</mat-card-title>
+                            <button class="acquistaButton" *ngIf="this.auth.isLoggedIn && !this.auth.isSeller() && !this.auth.isAdmin() && scarpa.tipo_annuncio!=='In_Asta'" (click)="addToCarrello()">Aggiungi al carrello</button>
+                            <button class="sendMailButton" (click)="sendEmail()">Invia una mail!</button>
+                            <button class="callButton" (click)="makeCall()">Chiama!</button>
+                        </mat-card-footer>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="secondRow">
+                <div class="scarpaGeneric">
+                    <div class="scarpaDescription">
+                        <h2><strong>Descrizione</strong></h2>
+                        <mat-divider class="secondRowDivider"></mat-divider>
+                        <h4 class="scarpaDescription">{{scarpa.descrizione}}</h4>
+                    </div>
+                    <div class="scarpaInformation">
+                        <h2><strong>Informazioni</strong></h2>
+                        <mat-divider class="secondRowDivider"></mat-divider>
+                        <h4 class="scarpaMarca">Marca: {{scarpa.marca}}</h4>
+                        <h4 class="scarpaTaglia">Taglia: {{scarpa.taglia}}</h4>
+                        <h4 class="scarpaTipo">Tipo: {{scarpa.tipo}}</h4>
+                        <h4 class="scarpaColore">Colore: {{scarpa.colore}}</h4>
+                        <h4 class="scarpaRelease">Anno di uscita: {{scarpa.anno_uscita}}</h4>
+                    </div>
+                </div>
+                <mat-divider class="mat-divider thick-divider" [vertical]="true"></mat-divider>
+                <div class="scarpaCardInfos">
+                    <mat-card class="scarpaCard">
+                        <mat-card-footer>
+                            <mat-card-title>Tipo scarpa: {{scarpa.tipo_annuncio.replace("_", " ")}}</mat-card-title>
+                            <h1 *ngIf="scarpa.tipo_annuncio != 'In_Asta'" [style]="prezzoOrigStyle">{{scarpa.prezzo_orig}}€</h1>
+                            <h1 *ngIf="scarpa.prezzo_orig > scarpa.prezzo_attuale && scarpa.tipo_annuncio != 'In_Asta'">{{scarpa.prezzo_attuale}}€</h1>
+                            <div class="astaInfos" *ngIf="scarpa.tipo_annuncio == 'In_Asta' && !astaDisabled && !this.auth.isSeller()">
+                                <h4> Prezzo attuale: {{asta.prezzo_corrente}}€</h4>
+                                <h4 *ngIf="ultimo_offerente != 'nessuno'" style="word-wrap: break-word; overflow-wrap: break-word;"> Ultima offerta da: {{ultimo_offerente}}</h4>
+                                <span id="days" style="font-size: 25px"> {{daysToDday}}</span>Giorno/i
+                                <span id="hours" style="font-size: 25px"> {{hoursToDday}}</span>Ore
+                                <span id="minutes" style="font-size: 25px"> {{minutesToDday}}</span>Min
+                                <span id="seconds" style="font-size: 25px"> {{secondsToDday}}</span>Sec
+                                <div class="offerta" style="margin-top: 10px;" *ngIf="!checkIfSameOwner()">
+                                    <h3 style="margin-top: 50px; margin-bottom: -3px;">Fai un'offerta!</h3>
+                                    <div class="inputWithButton" style="display: flex; justify-content: center;">
+                                        <input required type="number" [placeholder]="'Superiore a: '+prezzo_minimo_asta+'€'" [min]="prezzo_minimo_asta" [(ngModel)]="prezzo_asta_update">
+                                        <button class="sendUpdateAstaButton" (click)="sendUpdateAsta()">Invia</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-footer>
+                        <label *ngIf="astaDisabled" style="font-size: 20px; margin-top: 10px;">Asta chiusa.</label>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="thirdRow">
+                <div class="youtubeVideo">
+                    <iframe width="670" height="400" src="https://www.youtube.com/embed/bM_jisIi3ak" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <mat-divider class="mat-divider thick-divider" [vertical]="true"></mat-divider>
+                <div class="reviewsBox">
+                    <p class="noReviewsFound" *ngIf="recensioni.length == 0">Non sono presenti recensioni per questo annuncio.</p>
+                    <div class="reviews" *ngFor="let recensione of recensioni; index as i">
+                        <p>Scritta da: {{recensione.autore}}</p>
+                        <p class="reviewObject">Oggetto: {{recensione.titolo}}</p>
+                        <p>Rating: {{recensione.rating}}/5</p>
+                        <div *ngIf="this.auth.isLoggedIn && (this.auth.isAdmin() || checkIfSameReviewOwner(recensione))"> <a (click)="deleteRecensione(recensione.id)" class="removeReview">Rimuovi recensione</a> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button mat-fab class="fab-button" (click)="toggleMenu()" title="Condividi annuncio">
+        <mat-icon>share</mat-icon>
+    </button>
+    <div class="fab-menu" *ngIf="menuOpen">
+        <button class="facebookButton" mat-button (click)="shareTo('facebook')">
+            <fa-icon [icon]="faFacebook" style="font-size: 20px;"></fa-icon>
+        </button>
+        <button class="whatsappButton" mat-button (click)="shareTo('whatsapp')">
+            <fa-icon [icon]="faWhatsapp" style="font-size: 20px;"></fa-icon>
+        </button>
+        <button class="emailButton" mat-button (click)="shareTo('mail')">
+            <fa-icon [icon]="faEnvelope" style="font-size: 20px;"></fa-icon>
+        </button>
+    </div>
+
+    <button mat-fab class="fab-button-2" (click)="addReview()" title="Aggiungi recensione" *ngIf="this.auth.isLoggedIn && !checkIfSameOwner()">
+        <mat-icon>add_circle</mat-icon>
+    </button>
+</body>

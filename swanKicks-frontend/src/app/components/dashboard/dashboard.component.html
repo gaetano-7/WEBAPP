@@ -1,0 +1,73 @@
+<div class="main-container">
+    <mat-toolbar class="main-toolbar">
+      <ng-template *ngIf="Mobile(); then bloccoIf else bloccoElse"></ng-template>
+      <ng-template #bloccoIf>
+        <button mat-icon-button (click)="toggleSidenav()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </ng-template>
+      <ng-template #bloccoElse>
+        <ul class="menu">
+          <mat-list-item routerLink="home" [routerLinkActive]="'active'"><strong>Home</strong></mat-list-item>
+          <mat-list-item routerLink="chi-siamo" [routerLinkActive]="'active'"><strong>Chi siamo</strong></mat-list-item>
+          <mat-list-item routerLink="supporto" [routerLinkActive]="'active'"><strong>Supporto</strong></mat-list-item>
+          <mat-list-item *ngIf="this.auth.isLoggedIn && !this.auth.isAdmin() && !this.auth.isSeller()" routerLink="carrello/:id" [routerLinkActive]="'active'"><mat-icon>shopping_cart</mat-icon></mat-list-item>
+        </ul>
+      </ng-template>
+  
+      <span class="profile-icon-spacer"></span>
+  
+      <div class="profile-icon-wrapper">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+  
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item onClick="window.open('http://localhost:8080/login','_self')" *ngIf="!this.auth.isLoggedIn">
+          <mat-icon>login</mat-icon>
+          <a style="font-size: 15px;">Login</a>
+        </button>
+        <button mat-menu-item onClick="window.open('http://localhost:8080/registrazione','_self')" *ngIf="!this.auth.isLoggedIn">
+          <mat-icon>app_registration</mat-icon>
+          <a style="font-size: 15px;">Registrati</a>
+        </button>
+        <button mat-menu-item *ngIf="this.auth.isLoggedIn" routerLink="profilo">
+          <mat-icon>account_circle</mat-icon>
+          <span style="font-size: 15px;">Profilo</span>
+        </button>
+        <button mat-menu-item *ngIf="this.auth.isLoggedIn && !this.auth.isBuyer()" routerLink="aggiungi-annuncio">
+          <mat-icon>plus_one</mat-icon>
+          <span style="font-size: 15px;">Aggiungi/Modifica annuncio</span>
+        </button>
+        <button mat-menu-item *ngIf="this.auth.isLoggedIn && !this.auth.isAdmin() && !this.auth.isSeller()" routerLink="ordini/:id">
+          <mat-icon>local_shipping</mat-icon>
+          <span style="font-size: 15px;">Ordini</span>
+        </button>
+        <button mat-menu-item *ngIf="this.auth.isLoggedIn && this.auth.isAdmin()" routerLink="admin-cpl">
+          <mat-icon>star_half</mat-icon>
+          <span style="font-size: 15px;">Pannello di controllo</span>
+        </button>
+        <button mat-menu-item *ngIf="this.auth.isLoggedIn" (click)="this.auth.logout()" routerLink="home">
+          <mat-icon>logout</mat-icon>
+          <span style="font-size: 15px;">Esci</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+  
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav mode="over" [opened]="false">
+        <mat-nav-list>
+          <mat-list-item role="listitem" routerLink="home" (click)="toggleSidenav()"><mat-icon>home</mat-icon>Home</mat-list-item>
+          <mat-list-item role="listitem" routerLink="privacy" (click)="toggleSidenav()"><mat-icon>security</mat-icon>Privacy</mat-list-item>
+          <mat-list-item role="listitem" routerLink="supporto" (click)="toggleSidenav()"><mat-icon>help</mat-icon>Supporto</mat-list-item>
+          <mat-list-item role="listitem" routerLink="chi-siamo" (click)="toggleSidenav()"><mat-icon>info</mat-icon>Chi siamo</mat-list-item>
+        </mat-nav-list>
+      </mat-sidenav>
+  
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  

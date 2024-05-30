@@ -1,0 +1,45 @@
+<body>
+    <div class="background">
+      <div class="blur-overlay"></div>
+      <div class="container">
+        <div style="text-align:center;">
+          <h2>Aggiungi/Modifica annuncio</h2>
+          <hr flex style="margin-bottom: 25px;"/>
+        </div>
+        <select name="myScarpe" id="myScarpe" [(ngModel)]="myScarpeSelection" (change)="onValueScarpeSelected($event)">
+          <option value="" selected disabled>-- Seleziona una scarpa da modificare --</option>
+          <option *ngFor="let scarpe of myScarpeArray; index as myScarpeArrayIndex" [value]="myScarpeArrayIndex">Nome: {{scarpe.nome}}, Prezzo: {{scarpe.prezzo_attuale}}€</option>
+        </select>
+        <form class="AddScarpaForm" [formGroup]="formAggiungi" (ngSubmit)="onSubmit()">
+          <input type="text" formControlName="titolo" id="title" placeholder="Titolo" required>
+          <select id="type" formControlName="tipo" required [(ngModel)]="selectedValueType" (change)="onValueTypeSelected($event)">
+            <option value="" selected disabled>-- Seleziona tipo scarpa --</option>
+            <option value="High" selected>High</option>
+            <option value="Mid">Mid</option>
+            <option value="Low">Low</option>
+          </select>
+          <input type="text" formControlName="marca" id="marca" placeholder="Marca" required>
+          <input type="number" formControlName="taglia" id="taglia" placeholder="Taglia" required>
+          <input type="number" id="price" formControlName="prezzo" placeholder="Prezzo" required *ngIf="myScarpeSelection == ''">
+          <input type="number" id="price_new" formControlName="prezzo_attuale" placeholder="Prezzo nuovo" required *ngIf="myScarpeSelection != '' && !astaSelected">
+          <textarea id="description" formControlName="descrizione" placeholder="Descrizione" required></textarea>
+          <input type="number" id="sqm" formControlName="anno_uscita" placeholder="Anno Uscita" required>
+          <input type="text" formControlName="colore" id="color" placeholder="Colore" required>
+          <select name="tipo_annuncio" id="tipo_annuncio" formControlName="tipo_annuncio" [(ngModel)]="selectedValue" (change)="onValueSelected($event)" required>
+            <option value="" disabled selected>-- Seleziona tipo annuncio --</option>
+            <option value="In_Vendita">In Vendita</option>
+            <option value="In_Asta">Asta</option>
+          </select>
+          <label class="astaLabel" *ngIf="astaSelected && myScarpeSelection == ''">Quando vuoi che l'asta finisca?</label>
+          <input type="datetime-local" id="asta_endtime" formControlName="asta_endtime" *ngIf="astaSelected && myScarpeSelection == ''" [min]="minDateTime" required>
+          <input type="file" id="image" formControlName="foto" accept="image/*" multiple (change)="onFileChange($event)" required>
+          <label class="astaLabel" *ngIf="astaSelected && myScarpeSelection == ''">Nota: una volta pubblicata l'asta, il prezzo non potrà essere modificato!</label>
+          <button type="submit" *ngIf="myScarpeSelection == ''">Aggiungi annuncio</button>
+          <button type="submit" *ngIf="myScarpeSelection != ''">Modifica annuncio</button>
+        </form>
+        <button class="openNewPageButton" *ngIf="myScarpeSelection != ''" (click)="openNewPage()">Apri pagina annuncio</button>
+        <button class="deleteScarpaButton" *ngIf="myScarpeSelection != ''" (click)="deleteScarpa()">Rimuovi annuncio</button>
+      </div>
+    </div>
+  </body>
+  

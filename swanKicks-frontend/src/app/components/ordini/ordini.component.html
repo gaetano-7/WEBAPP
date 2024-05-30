@@ -1,0 +1,34 @@
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <div class="background">
+        <div class="blur-overlay"></div>
+        <div class="container">
+            <div class="secondRow">
+                <div class="scarpaGeneric">
+                    <div class="scarpaDescription">
+                        <h2>ORDINI</h2>
+                        <mat-divider class="secondRowDivider"></mat-divider>
+                        <h4 class="scarpaDescription">{{scarpa.descrizione}}</h4>
+                        <h2>Di seguito sono elencati tutti gli ordini effettuati</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="secondRow">
+              <div class="scarpaGeneric">
+                <p class="noReviewsFound" *ngIf="ordini.length == 0">Non hai ancora effettuato alcun</p>
+                <div class="acquisti" *ngFor="let acquisto of ordini; index as i">
+                  <img class="img" [src]="acquisto.immagine" alt="Image" onerror="this.src='assets/no_images_found.png'">
+                    <p>Articolo: {{acquisto.nome}}</p>
+                    <p>Prezzo: {{acquisto.prezzo}}</p>
+                    <p>Taglia: {{acquisto.taglia}}</p>
+                    <mat-divider class="secondRowDivider"></mat-divider>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div> 
+  </body>
+  

@@ -1,0 +1,298 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.background {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .background::before {
+    content: "";
+    background-image: url("src/assets/background.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+.blur-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.908);
+    border-radius: 20px;
+    max-width: 95%;
+    max-height: 85%;
+}
+
+.zeroRow, .firstRow, .thirdRow, .secondRow {
+    padding: 10px;
+    display: flex;
+    border: 2px solid #ccc;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+}
+
+.imageCarousel {
+    margin-top: 10px;
+    padding: 20px;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+}
+
+.img {
+    height: inherit;
+    margin-left: 10px;
+    margin-right: 2px;
+    border-radius: 3px;
+}
+
+.sellerInfos, .scarpaCardInfos {
+    padding: 20px;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    margin: 10px;
+    width: 30%;
+}
+
+.thick-divider {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 5px;
+    border-radius: 50px;
+    background-color: #ccc;
+}
+
+.sellerCard, .scarpaCard {
+    justify-content: center;
+    height: 280px;
+    border: 2px #ccc solid;
+    border-radius: 20px;
+}
+
+.callButton, .sendMailButton {
+    background-color: black;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    height: 40px;
+    width: 80%;
+    border-radius: 10px;
+
+}
+
+.callButton {
+    margin-top: 10px;
+}
+
+.sendMailButton {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.sendMailButton:hover, .callButton:hover {
+    border: 2px solid #0d47a1;
+    cursor: pointer;
+}
+
+.acquistaButton {
+    background-color: black;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    height: 40px;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.acquistaButton {
+    margin-top: 10px;
+}
+
+.acquistaButton:hover {
+    border: 2px solid #0d47a1;
+    cursor: pointer;
+}
+
+.secondRowDivider {
+    margin-bottom: 20px;
+}
+
+.scarpaGeneric {
+    width: 100%;
+    margin: 10px auto;
+    margin-left: 10px;
+}
+
+.sendUpdateAstaButton {
+    background-color: #259be2;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 30px;
+    width: 50px;
+}
+
+#leafletMap {
+    margin-left: 5px;
+    height: 400px;
+    width: 600px;
+    border: 1px #ccc solid;
+    border-radius: 20px;
+}
+
+.reviewsBox {
+    overflow-y: scroll;
+    height: 400px;
+    width: 80%;
+}
+
+.reviews {
+    border: 2px #ccc solid;
+    border-radius: 20px;
+    margin: 8px auto;
+    padding: 15px;
+}
+
+.noReviewsFound {
+    text-align: center;
+    border: 2px #ccc solid;
+    border-radius: 20px;
+    margin: 8px auto;
+    padding: 15px;
+    font-size: 18px;
+}
+
+.reviewObject {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.removeReview {
+    text-decoration: none;
+    color: white;
+    background-color: #b30000;
+    border-radius: 5px;
+    border: 2px solid #b30000;
+}
+
+.removeReview:hover{
+  cursor: pointer;
+}
+
+.fab-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+    background-color: #259be2;
+}
+
+.fab-button-2 {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 2;
+    background-color: #259be2;
+}
+
+.fab-menu {
+    position: fixed;
+    bottom: 23px;
+    right: 80px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+    z-index: 3;
+}
+
+.facebookButton:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+}
+
+.whatsappButton:hover {
+    background-color: #25D366;
+    color: #ffffff;
+}
+
+.emailButton:hover {
+    background-color: #DB4437;
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1435px) {
+    .container {
+        max-width: 90%;
+    }
+
+    .firstRow, .thirdRow, .secondRow {
+        align-items: center;
+        justify-content: center;
+        display: block;
+    }
+
+    .sellerInfos, .scarpaCardInfos {
+        margin: 10px auto;
+        width: 95%;
+    }
+
+    .imageCarousel {
+        margin: 10px auto;
+        width: 90%;
+        border-radius: 20px;
+    }
+
+    .img {
+        border-radius: 20px;
+    }
+
+    #leafletMap {
+        margin: 10px auto;
+        height: 250px;
+        width: 90%;
+    }
+
+    .reviewsBox {
+        margin: 10px auto;
+        width: 90%;
+    }
+}

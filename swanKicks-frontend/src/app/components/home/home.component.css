@@ -1,0 +1,154 @@
+.home {
+    align-items: center;
+    margin: 0%;
+  }
+  
+  .initialText {
+    color: black;
+    font-size: 50px;
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+  }
+  
+  
+  .logo-container {
+    width: 100% auto;
+    text-align: center;
+    background-image: url("src/assets/background_blur.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 20px;
+  }
+  
+  #logo {
+    width: 30%;
+    height: auto;
+  }
+
+  .formFiltri {
+    height: 13.5%;
+    display: flex;
+    justify-content: left;
+    background-color: #4B9CD3;
+  }
+  
+  .filtriContainer {
+    color: black;
+    margin-left: 11.5%;
+  }
+  
+  .searchBar {
+    width: 100%;
+    margin-left: 11.5%;
+    height: 10%;
+  }
+  
+  .searchButton {
+    z-index: 1;
+    display: block;
+    cursor: pointer;
+    margin-right: 11.5%;
+    margin-bottom: 22px;
+    height: 56px;
+    border: none;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    width: 80px;
+  }
+  
+  .ricercaContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4B9CD3;
+  }
+  
+  .tipoScarpaSelect,
+  .tipoAnnuncioSelect,
+  .tipoOrdinamentoSelect {
+    background-color: transparent;
+    color: white;
+    width: 165px;
+    height: 50px;
+    border: none;
+    margin-right: 25px;
+  }
+  
+  .optionEntry {
+    color: black;
+  }
+  
+  .tipoScarpaSelect:focus,
+  .tipoAnnuncioSelect:focus,
+  .tipoOrdinamentoSelect:focus {
+    outline: none;
+  }
+  
+  .tipoScarpaSelect:hover,
+  .tipoAnnuncioSelect:hover,
+  .tipoOrdinamentoSelect:hover {
+    cursor: pointer;
+  }
+  
+  .tipoOrdinamentoSelect {
+    width: 100px !important;
+  }
+  
+  .mat-grid-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .cards {
+    transform: scale(0.9);
+    width: 100%;
+    border-radius: 20px;
+    border: lightgray 1px solid !important;
+  }
+  
+  .cards:hover {
+    cursor: pointer;
+    border: #4B9CD3 2px solid !important;
+  }
+  
+  .gridList {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .matCardImg {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    object-fit: contain;
+  }
+  
+  .imageContainer{
+    width: 500px;
+    height: 350px;
+    display: flex;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
+  
+  mat-card-title,
+  mat-card-subtitle {
+    margin-left: 20px;
+  }
+  
+  mat-card-footer {
+    margin-bottom: 10px;
+  }
+  
+  @media screen and (max-width: 768px) {
+  
+    .imageContainer {
+      width: 370px;
+      margin: 2px auto;
+      height: 380px;
+    }
+  }
+  

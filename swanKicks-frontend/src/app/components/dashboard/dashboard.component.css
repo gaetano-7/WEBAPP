@@ -1,0 +1,64 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .main-toolbar {
+    display: flex;
+    align-items: center;
+    background-color: #4B9CD3;
+    color: black;
+    height: 50px;
+  }
+  
+  .profile-icon-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .menu {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    margin-right: 50px;
+  }
+  
+  mat-list-item {
+    display: flex;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  
+  mat-list-item:hover {
+    cursor: pointer;
+    font-size: 1.3em;
+  }
+  
+  mat-list-item.active {
+    font-size: 1.3em;
+    background-color: white;
+    
+  }
+  
+  .profile-icon-wrapper {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .profile-icon-wrapper button {
+    margin-right: 10px;
+  }
+  
